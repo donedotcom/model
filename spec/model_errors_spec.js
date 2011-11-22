@@ -1,7 +1,7 @@
-var helper = require('../spec_helper'),
+var helper = require('./spec_helper'),
     assert = require('assert'),
     vows = require('vows'),
-    ModelErrors = require('done').done_model_errors;
+    ModelErrors = require('../lib/model_erorrs');
 
 var errorText1 = 'You never call me anymore';
 var errorText2 = 'Jellybeans are not an apology';

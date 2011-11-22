@@ -5,9 +5,9 @@
 
 // Load expected global variables
 ENV = 'test';
-var done = require('done');
-
-var db = exports.db = done.mongo;
+// var done = require('done');
+// 
+// var db = exports.db = done.mongo;
 var clearDatabase = exports.clearDatabase = function (callback) {
   db.connect(function (err) {
     db.mongo.collections(function (err, collections) {
@@ -28,4 +28,4 @@ var clearDatabase = exports.clearDatabase = function (callback) {
   });
 };
 
-exports.factory = require('./factory');
+//exports.factory = require('./factory');

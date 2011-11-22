@@ -2,12 +2,12 @@
 // Done. Model abstraction spec
 // Copyright (c) 2011 Done. Corporation
 // ---------------------------------------------------------------------------
-var helper = require('../spec_helper'),
+var helper = require('./spec_helper'),
     assert = require('assert'),
     vows = require('vows'),
     check = require('validator').check,
-    oo = require('done').oo,
-    DoneModel = require('done').done_model;
+    oo = require('../lib/oo'),
+    DoneModel = require('../lib/model');
 
 var validationText = 'must not be null and should be at least 3 characters';
 
