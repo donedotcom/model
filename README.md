@@ -15,8 +15,8 @@ A model based on Done.com's implementation, with extra kickass.
   * Models self-validate and return meaningful error messages when errors are found.
 * **Paths.**
   * Per `MARKET-40`:
-    > Model should support `set`, `get` with full pathnames (`a.b.c`), overriding Backbone implementation - MongoModel should *not* support set because it's not consistent with MongoDB behavior.
-    > Errors.on() should support the same syntax.
+    > `Model` should support `set`, `get` with full pathnames (`a.b.c`), overriding Backbone implementation - `MongoModel` should *not* support set because it's not consistent with MongoDB behavior.
+    > `Errors.on()` should support the same syntax.
 
 ## Todo ##
 

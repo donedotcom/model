@@ -11,6 +11,8 @@ var helper = require('./spec_helper'),
 
 var validationText = 'must not be null and should be at least 3 characters';
 
+// ATTN: Not testing unset function
+
 var SubWidget = DoneModel.extend({}, {
   Schema : {
     name : true
@@ -97,8 +99,12 @@ vows.describe('DoneModel').addBatch({
     'embedded widget has the right type' : function (err, widget) {
       assert.isTrue(widget.get('exampleWidget') instanceof SubWidget);
     },
-    'can get embedded widget field' : function (err, widget) {
-      assert.equal(widget.get('exampleWidget').get('name'), 'example');
+    'can get embedded widget field via path' : function (err, widget) {
+      assert.equal(widget.get('exampleWidget.name'), 'example');
+    },
+    'can set embedded widget field via path' : function (err, widget) {
+      widget.set({ 'exampleWidget.name' : 'elpmaxe' });
+      assert.equal(widget.get('exampleWidget.name'), 'elpmaxe');
     }
   },
   'widget with single valid embedded widget' : {
