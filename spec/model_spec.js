@@ -166,7 +166,6 @@ vows.describe('DoneModel').addBatch({
 // ---------------------------------------------------------------------------
 // set function
 // ---------------------------------------------------------------------------
-
   'widget with value' : {
     topic : create({ name : 'myName', additionalField : 'additional' }),
     'set schema field' : {
@@ -188,7 +187,25 @@ vows.describe('DoneModel').addBatch({
         assert.isFalse(widget.isValid());
         assert.ok(widget.errors.on('birthdate'));
       }
-    },
+    }
+  }
+}).addBatch({
+// ---------------------------------------------------------------------------
+// unset function
+// ---------------------------------------------------------------------------
+  'widget with value' : {
+    topic : create({ name : 'myName', additionalField : 'additional' }),
+    'unset field' : {
+      topic : function (widget) {
+        return widget.unset('name');
+      },
+      'will update properly' : function (widget) {
+        assert.equal(widget.get('name'), null);
+      },
+      'does not change other fields' : function (widget) {
+        assert.equal(widget.get('additionalField'), 'additional');
+      }
+    }
   }
 }).addBatch({
 // ---------------------------------------------------------------------------
