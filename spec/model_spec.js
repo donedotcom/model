@@ -167,13 +167,14 @@ vows.describe('DoneModel').addBatch({
 // set function
 // ---------------------------------------------------------------------------
   'widget with value' : {
-    topic : create({ name : 'myName', additionalField : 'additional' }),
-    'set schema field' : {
+    topic : create({ name : 'myName', additionalField : 'additional', exampleWidget: { name: 'nombre' } }),
+    'set fields via paths' : {
       topic : function (widget) {
-        return widget.set({ name : 'newName' });
+        return widget.set({ name : 'newName', 'exampleWidget.name' : 'nomme' });
       },
       'will update properly' : function (widget) {
         assert.equal(widget.get('name'), 'newName');
+        assert.equal(widget.get('exampleWidget.name'), 'nomme');
       },
       'does not change other fields' : function (widget) {
         assert.equal(widget.get('additionalField'), 'additional');
@@ -194,8 +195,8 @@ vows.describe('DoneModel').addBatch({
 // unset function
 // ---------------------------------------------------------------------------
   'widget with value' : {
-    topic : create({ name : 'myName', additionalField : 'additional' }),
-    'unset field' : {
+    topic : create({ name : 'myName', additionalField : 'additional', exampleWidget: { name : 'aName' } }),
+    'unset first-level field' : {
       topic : function (widget) {
         return widget.unset('name');
       },
@@ -204,6 +205,14 @@ vows.describe('DoneModel').addBatch({
       },
       'does not change other fields' : function (widget) {
         assert.equal(widget.get('additionalField'), 'additional');
+      }
+    },
+    'unset field via path' : {
+      topic : function (widget) {
+        return widget.unset('exampleWidget.name');
+      },
+      'will update properly' : function (widget) {
+        assert.equal(widget.get('exampleWidget.name'), null);
       }
     }
   }
