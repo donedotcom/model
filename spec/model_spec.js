@@ -164,14 +164,14 @@ vows.describe('DoneModel').addBatch({
 
 }).addBatch({
 // ---------------------------------------------------------------------------
-// update_attributes function
+// set function
 // ---------------------------------------------------------------------------
 
   'widget with value' : {
     topic : create({ name : 'myName', additionalField : 'additional' }),
-    'update_attributes schema field' : {
+    'set schema field' : {
       topic : function (widget) {
-        return widget.update_attributes({ name : 'newName' });
+        return widget.set({ name : 'newName' });
       },
       'will update properly' : function (widget) {
         assert.equal(widget.get('name'), 'newName');
@@ -180,9 +180,9 @@ vows.describe('DoneModel').addBatch({
         assert.equal(widget.get('additionalField'), 'additional');
       }
     },
-    'update_attributes invalid field' : {
+    'set invalid field' : {
       topic : function (widget) {
-        return widget.update_attributes({ birthdate : 'June' });
+        return widget.set({ birthdate : 'June' });
       },
       'will fail validation' : function (widget) {
         assert.isFalse(widget.isValid());
