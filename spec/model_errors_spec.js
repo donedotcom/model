@@ -1,7 +1,8 @@
 var helper = require('./spec_helper'),
+    _ = require('underscore')._,
     assert = require('assert'),
     vows = require('vows'),
-    ModelErrors = require('../lib/model_erorrs');
+    ModelErrors = require('../lib/model_errors');
 
 var errorText1 = 'You never call me anymore';
 var errorText2 = 'Jellybeans are not an apology';
