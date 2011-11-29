@@ -49,22 +49,27 @@ function create(obj) {
 vows.describe('Path').addBatch({
   'simple path cases' : {
     topic : create({
+      _id : '1234',
       author : 'Carroll',
-      wonderland : { girl : 'Alice' },
+      wonderland : { _id : '9832', girl : 'Alice' },
       matrix : {
+        _id : '5678',
         name : 'Neo',
         pillColor : 'blue',
-        meta : { releaseYear: '1999' }
+        meta : { _id : '4329', releaseYear: '1999' }
       }
     }),
     'can retrieve top-level element' : function (err, lookingGlass) {
       assert.equal(lookingGlass.get('author'), 'Carroll');
+      assert.equal(lookingGlass.get('id'), '1234');
     },
     'can retrieve second-level element' : function (err, lookingGlass) {
       assert.equal(lookingGlass.get('wonderland.girl'), 'Alice');
+      assert.equal(lookingGlass.get('wonderland.id'), '9832');
     },
     'can retrieve third-level element' : function (err, lookingGlass) {
       assert.equal(lookingGlass.get('matrix.meta.releaseYear'), '1999');
+      assert.equal(lookingGlass.get('matrix.meta.id'), '4329');
     }
   },
   'path cases with absent nodes' : {
@@ -80,6 +85,7 @@ vows.describe('Path').addBatch({
     },
     'retrieve third-level element when parent is not present' : function (err, lookingGlass) {
       assert.equal(lookingGlass.get('matrix.meta.releaseYear'), undefined);
+      assert.equal(lookingGlass.get('matrix.meta.id'), undefined);
     }
   }
 }).export(module);
