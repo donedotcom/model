@@ -18,7 +18,7 @@ vows.describe('ModelErrors').addBatch({
     },
     'should have no error on a field' : function (errors) {
       assert.isNull(errors.on('field'));
-    },
+    }
   }
 }).addBatch({
   'with a field error': {

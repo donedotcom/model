@@ -69,8 +69,8 @@ vows.describe('DoneModel').addBatch({
     'exception to get non-schema field [birthdate]' : function (err, widget) {
       try {
         widget.get('birthdate');
-      } catch (err) {
-        assert.equal(err.message, 'Schema error: birthdate');
+      } catch (error) {
+        assert.equal(error.message, 'Schema error: birthdate');
         return;
       }
       assert.ok(false); // Should not get here
@@ -144,7 +144,7 @@ vows.describe('DoneModel').addBatch({
       assert.isTrue(widget.get('examples')[0] instanceof SubWidget);
     },
     'embedded widget arrays can be found via paths' : function (err, widget) {
-      assert.equal()
+      assert.equal();
     }
   },
   'widget with embedded widget array that has an invalid element' : {
@@ -242,7 +242,7 @@ vows.describe('DoneModel').addBatch({
     },
     'should have an error on name': function (widget) {
       assert.equal(widget.errors.on('name'), validationText);
-    },
+    }
   }
 }).addBatch({
   'with invalid base record widget': {
@@ -255,7 +255,7 @@ vows.describe('DoneModel').addBatch({
     },
     'should not have an error on name': function (widget) {
       assert.isNull(widget.errors.on('name'));
-    },
+    }
   }
 }).addBatch({
   'with two invalid params': {
@@ -271,7 +271,7 @@ vows.describe('DoneModel').addBatch({
     },
     'should have two errors': function (widget) {
       assert.equal(widget.errors.count(), 2);
-    },
+    }
   }
 }).addBatch({
   'with paths' : {
