@@ -11,8 +11,6 @@ var helper = require('./spec_helper'),
 
 var validationText = 'must not be null and should be at least 3 characters';
 
-// ATTN: Not testing unset function
-
 var SubWidget = DoneModel.extend({}, {
   Schema : {
     name : true
@@ -116,7 +114,9 @@ vows.describe('DoneModel').addBatch({
       var example = widget.get('exampleWidget');
       example.isValid();
 
-      assert.equal(example.errors.on('name'), validationText);
+      // note: not using example.errors.on here b/c we need to test
+      // errors.on with a full path name
+      assert.equal(widget.errors.on('exampleWidget.name'), validationText);
     },
     'widget should not be valid' : function (err, widget) {
       assert.isFalse(widget.isValid());
