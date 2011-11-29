@@ -17,8 +17,3 @@ A model based on Done.com's implementation, with extra kickass.
   * Per `MARKET-40`:
     > `Model` should support `set`, `get` with full pathnames (`a.b.c`), overriding Backbone implementation - `MongoModel` should *not* support set because it's not consistent with MongoDB behavior.
     > `Errors.on()` should support the same syntax.
-
-## Todo ##
-
-* Settle on syntax for declaring models/schemas.
-* Research validation solutions.
