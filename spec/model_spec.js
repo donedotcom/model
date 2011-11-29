@@ -189,6 +189,17 @@ vows.describe('DoneModel').addBatch({
         assert.ok(widget.errors.on('birthdate'));
       }
     }
+  },
+  'widget with model holes' : {
+    topic : create({ name : 'myName', additionalField : 'additional' }),
+    'blah' : {
+      topic : function (widget) {
+        return widget.set({ 'exampleWidget.name' : 'bob' });
+      },
+      'first-level' : function (widget) {
+        assert.equal(widget.get('exampleWidget.name'), 'bob');
+      }
+    }
   }
 }).addBatch({
 // ---------------------------------------------------------------------------

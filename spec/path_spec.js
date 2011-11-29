@@ -84,6 +84,7 @@ vows.describe('Path').addBatch({
       assert.equal(lookingGlass.get('wonderland.girl'), undefined);
     },
     'retrieve third-level element when parent is not present' : function (err, lookingGlass) {
+      assert.equal(lookingGlass.get('matrix.meta'), undefined);
       assert.equal(lookingGlass.get('matrix.meta.releaseYear'), undefined);
       assert.equal(lookingGlass.get('matrix.meta.id'), undefined);
     }
