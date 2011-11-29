@@ -1,5 +1,4 @@
-var helper = require('./spec_helper'),
-    _ = require('underscore')._,
+var _ = require('underscore')._,
     assert = require('assert'),
     vows = require('vows'),
     ModelErrors = require('../lib/model_errors');

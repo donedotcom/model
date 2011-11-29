@@ -2,8 +2,7 @@
 // Done. Model path spec
 // Copyright (c) 2011 Done. Corporation
 // ---------------------------------------------------------------------------
-var helper = require('./spec_helper'),
-    assert = require('assert'),
+var assert = require('assert'),
     vows = require('vows'),
     check = require('validator').check,
     oo = require('../lib/oo'),
