@@ -30,7 +30,7 @@ task 'spec', 'run vows specs', ->
 
   vowsFiles.push('-spec')
 
-  proc = spawn 'vows', vowsFiles
+  proc = spawn 'node_modules/.bin/vows', vowsFiles
   proc.stdout.on 'data', (data) ->
     process.stdout.write data
   proc.stderr.on 'data', (data) ->
