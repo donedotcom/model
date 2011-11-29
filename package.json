@@ -8,6 +8,6 @@
     "jshint": "0.5.x",
 		"underscore": "1.2.x",
     "validator": "0.2.x",
-		"vows": "0.5.x",
+		"vows": "0.5.x"
 	}
 }
