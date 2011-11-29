@@ -13,7 +13,8 @@ var validationText = 'must not be null and should be at least 3 characters';
 
 var SubWidget = DoneModel.extend({}, {
   Schema : {
-    name : true
+    name : true,
+    setForSubError : true
   }
 });
 
@@ -142,6 +143,9 @@ vows.describe('DoneModel').addBatch({
       assert.isTrue(widget.get('examples') instanceof Array);
       assert.isTrue(widget.get('examples')[0] instanceof SubWidget);
     },
+    'embedded widget arrays can be found via paths' : function (err, widget) {
+      assert.equal()
+    }
   },
   'widget with embedded widget array that has an invalid element' : {
     topic : create({ name : 'validName', examples : [{        }, { name : 'example2' }] }),
@@ -268,5 +272,27 @@ vows.describe('DoneModel').addBatch({
     'should have two errors': function (widget) {
       assert.equal(widget.errors.count(), 2);
     },
+  }
+}).addBatch({
+  'with paths' : {
+    topic: create({ name : 'abc', exampleWidget : { name : 'cd' }, examples : [{ name : 'ef' }, { name : 'ghi' }] }),
+    'top-level model should be invalid': function (widget) {
+      assert.isFalse(widget.isValid());
+    },
+    'submodel should be invalid' : function (widget) {
+      assert.equal(widget.errors.on('exampleWidget.name'), validationText);
+    },
+    'subarrays should be invalid' : function (widget) {
+      assert.equal(widget.errors.on('examples'), 'Embedded array validation errors');
+    }
+  },
+  'with absent paths' : {
+    topic: create({ name : 'abc', examples : [{ name : 'ef' }, { name : 'ghi' }] }),
+    'top-level model should be invalid': function (widget) {
+      assert.isFalse(widget.isValid());
+    },
+    'submodel errors should be undefined' : function (widget) {
+      assert.equal(widget.errors.on('exampleWidget.name'), undefined);
+    }
   }
 }).export(module);
