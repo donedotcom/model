@@ -2,7 +2,7 @@ A model structure written for Node.js that supports schemas and paths. Written f
 
 ## Features ##
 * **Schemas**
-  Schemas are declared with the model and comprise a set of fields that are recognized as valid fields in the model. At present, a schema contains only a hash of `field : true|false` mappings, which describe whether the field is allowed in the model or not. Fields not declared in the schema will cause a `Schema error` to be thrown when such a field is accessed.
+  Schemas are declared with the model and comprise a set of fields that are recognized as valid fields in the model. At present, a schema contains only a hash of `field : true|false` mappings, which describe whether the field is allowed in the model or not. Fields not declared in the schema will cause a `Schema error` to be reported when such a field is accessed.
 
 * **Validation**
   Validation is built-in using the NPM module `Validator`. Validation properties can be specified after the model and its schema have been created, using the `validates` function.
