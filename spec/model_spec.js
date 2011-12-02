@@ -320,9 +320,9 @@ vows.describe('DoneModel').addBatch({
     'errorsToJSON should be correct' : function (widget) {
       widget.isValid();
       assert.isTrue(_.isEqual(widget.errors.errorsToJSON(), 
-        { 'exampleWidget.name': 'must not be null and should be at least 3 characters',
-          examples: 'Embedded array validation errors',
-          name: 'must not be null and should be at least 3 characters' }
+        { 'exampleWidget.name': ['must not be null and should be at least 3 characters'],
+          examples: ['Embedded array validation errors'],
+          name: ['must not be null and should be at least 3 characters'] }
       ));
     },
     'count' : function (widget) {
