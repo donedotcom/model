@@ -3,6 +3,7 @@
 // Copyright (c) 2011 Done. Corporation
 // ---------------------------------------------------------------------------
 var assert = require('assert'),
+    _ = require('underscore')._;
     vows = require('vows'),
     check = require('validator').check,
     oo = require('../lib/oo'),
@@ -108,6 +109,12 @@ vows.describe('DoneModel').addBatch({
     'can set embedded widget field via path' : function (err, widget) {
       widget.set({ 'exampleWidget.name' : 'elpmaxe' });
       assert.equal(widget.get('exampleWidget.name'), 'elpmaxe');
+    }
+  },
+  'widget to JSON' : {
+    topic : create({ _id: '1', exampleWidget : { _id: '2', name : 'example' } }),    
+    'attributesToJSON is correct' : function (err, widget) {
+      assert.isTrue(_.isEqual(widget.attributesToJSON(), { _id: '1', exampleWidget : { _id: '2', name : 'example' } }));
     }
   },
   'widget with single valid embedded widget' : {
@@ -297,6 +304,22 @@ vows.describe('DoneModel').addBatch({
     },
     'submodel errors should be undefined' : function (widget) {
       assert.equal(widget.errors.on('exampleWidget.name'), undefined);
+    }
+  }
+}).addBatch({
+  'errors' : {
+    topic: create({ name : 'a', exampleWidget : { name: 'b' }, examples : [{ name : 'c' }, { name : 'd' }] }),
+    'errorsToJSON should be correct' : function (widget) {
+      widget.isValid();
+      assert.isTrue(_.isEqual(widget.errors.errorsToJSON(), 
+        { 'exampleWidget.name': 'must not be null and should be at least 3 characters',
+          examples: 'Embedded array validation errors',
+          name: 'must not be null and should be at least 3 characters' }
+      ));
+    },
+    'count' : function (widget) {
+      widget.isValid();
+      assert.equal(widget.errors.count(), 3);
     }
   }
 }).export(module);
