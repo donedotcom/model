@@ -47,7 +47,6 @@ Widget.validates(function (message) {
     return check(this.get('setForError'), message).isNull();
   }, 'base error');
 
-
 function create(obj) {
   return function () {
     var widget = new Widget(obj);
@@ -90,9 +89,15 @@ vows.describe('DoneModel').addBatch({
   //
 
   'widget with single embedded widget' : {
-    topic : create({ exampleWidget : { name : 'example' } }),
+    topic : create({ _id: '1', exampleWidget : { _id: '2', name : 'example' } }),
+    'can get id' : function (err, widget) {
+      assert.ok(widget.get('id'));
+    },
     'can get embedded widget' : function (err, widget) {
       assert.ok(widget.get('exampleWidget'));
+    },
+    'can get embedded widget id' : function (err, widget) {
+      assert.ok(widget.get('exampleWidget.id'));
     },
     'embedded widget has the right type' : function (err, widget) {
       assert.isTrue(widget.get('exampleWidget') instanceof SubWidget);
