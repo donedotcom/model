@@ -112,9 +112,13 @@ vows.describe('DoneModel').addBatch({
     }
   },
   'widget to JSON' : {
-    topic : create({ _id: '1', exampleWidget : { _id: '2', name : 'example' } }),    
-    'attributesToJSON is correct' : function (err, widget) {
-      assert.isTrue(_.isEqual(widget.attributesToJSON(), { _id: '1', exampleWidget : { _id: '2', name : 'example' } }));
+    topic : create({ _id: '1', exampleWidget : { _id: '2', name : 'example' } }),
+    'when there are no sub-attributes' : function (err, widget) {
+      assert.isTrue(_.isEqual(Widget.attributesToJSON(widget), { _id: '1', exampleWidget : { _id: '2', name : 'example' } }));
+    },
+    'when there are sub-attributes' : function (err, widget) {
+      widget.unset('exampleWidget').set({ 'exampleWidget' : new SubWidget({ name : 'test', subsub: new SubWidget({ name : 'testa' }) }) });
+      assert.isTrue(_.isEqual(Widget.attributesToJSON(widget), { _id: '1', exampleWidget: { name: 'test', subsub: { name: 'testa' } } }));
     }
   },
   'widget with single valid embedded widget' : {
