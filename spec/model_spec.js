@@ -111,13 +111,17 @@ vows.describe('DoneModel').addBatch({
       assert.equal(widget.get('exampleWidget.name'), 'elpmaxe');
     }
   },
-  'widget to JSON' : {
+  'widget to JSON works' : {
     topic : create({ _id: '1', exampleWidget : { _id: '2', name : 'example' } }),
     'when there are no sub-attributes' : function (err, widget) {
       assert.isTrue(_.isEqual(Widget.attributesToJSON(widget), { _id: '1', exampleWidget : { _id: '2', name : 'example' } }));
     },
     'when there are sub-attributes' : function (err, widget) {
       widget.unset('exampleWidget').set({ 'exampleWidget' : new SubWidget({ name : 'test', subsub: new SubWidget({ name : 'testa' }) }) });
+      assert.isTrue(_.isEqual(Widget.attributesToJSON(widget), { _id: '1', exampleWidget: { name: 'test', subsub: { name: 'testa' } } }));
+    },
+    'when there are sub-attributes in non-sub-attributes' : function (err, widget) {
+      widget.unset('exampleWidget').set({ 'exampleWidget' : { name : 'test', subsub: new SubWidget({ name : 'testa' }) } });
       assert.isTrue(_.isEqual(Widget.attributesToJSON(widget), { _id: '1', exampleWidget: { name: 'test', subsub: { name: 'testa' } } }));
     }
   },
