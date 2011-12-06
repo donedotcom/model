@@ -13,6 +13,7 @@ var validationText = 'must not be null and should be at least 3 characters';
 
 var SubWidget = DoneModel.extend({}, {
   Schema : {
+    id : true,
     name : true,
     setForSubError : true
   }
@@ -61,7 +62,7 @@ vows.describe('DoneModel').addBatch({
 // Schema behavior
 // ---------------------------------------------------------------------------
   'widget' : {
-    topic : create({ name : 'myName' }),
+    topic : create({ name : 'myName', id : '4232'}),
     'can get schema field [name]' : function (err, widget) {
       assert.equal(widget.get('name'), 'myName');
     },
@@ -90,7 +91,7 @@ vows.describe('DoneModel').addBatch({
   //
 
   'widget with single embedded widget' : {
-    topic : create({ _id: '1', exampleWidget : { _id: '2', name : 'example' } }),
+    topic : create({ _id: '1', exampleWidget : { id : '35', name : 'example' } }),
     'can get id' : function (err, widget) {
       assert.ok(widget.get('id'));
     },
