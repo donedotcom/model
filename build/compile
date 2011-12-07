@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+var fs = require('fs'),
+    path = require('path'),
+    requirejs = require('requirejs');
+    
+var outputFile = path.join(__dirname, '..', 'model.js'),
+    outputFileMin = path.join(__dirname, '..', 'model-min.js'),
+    root = path.join(__dirname, '..', 'lib'),
+    wrap = {
+      start : '(function () { var module = { exports : {} }; var exports = module.exports;',
+      end : 'return module.exports; }())'
+    }
+    files = ['oo.js', 'path.js', 'model_errors.js', 'model.js'];
+
+var output = fs.openSync(outputFile, 'w');
+
+fs.writeSync(output, 'var DoneModel = (function () { var defined = {};');
+fs.writeSync(output, "defined.underscore = { _ : _ };");
+
+files.forEach(function (filename) {
+  var fileNoExt = filename.replace(/\.js$/, '');
+  var str = fs.readFileSync(path.join(root, filename)).toString();
+  
+  str = "defined['./" + fileNoExt + "'] = " + wrap.start + str + wrap.end + ';';
+  fs.writeSync(output, str, null);
+});
+
+fs.writeSync(output, 'function require(name) { return defined[name]; } return defined["./model"]; }());');
+
+fs.closeSync(output);
+
+
+/// Uglify
+var jsp = require("uglify-js").parser;
+var pro = require("uglify-js").uglify;
+
+var orig_code = fs.readFileSync(outputFile).toString();
+var ast = jsp.parse(orig_code); // parse code and get the initial AST
+ast = pro.ast_mangle(ast); // get a new AST with mangled names
+ast = pro.ast_squeeze(ast); // get an AST with compression optimizations
+var final_code = pro.gen_code(ast); // compressed code here
+fs.writeFile(outputFileMin, final_code);
+///
