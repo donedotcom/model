@@ -3,7 +3,7 @@
 // Copyright (c) 2011 Done. Corporation
 // ---------------------------------------------------------------------------
 var assert = require('assert'),
-    _ = require('underscore')._;
+    _ = require('underscore')._,
     vows = require('vows'),
     check = require('validator').check,
     oo = require('../lib/oo'),
@@ -320,7 +320,7 @@ vows.describe('DoneModel').addBatch({
     topic: create({ name : 'a', exampleWidget : { name: 'b' }, examples : [{ name : 'c' }, { name : 'd' }] }),
     'errorsToJSON should be correct' : function (widget) {
       widget.isValid();
-      assert.isTrue(_.isEqual(widget.errors.errorsToJSON(), 
+      assert.isTrue(_.isEqual(widget.errors.errorsToJSON(),
         { 'exampleWidget.name': ['must not be null and should be at least 3 characters'],
           examples: ['Embedded array validation errors'],
           name: ['must not be null and should be at least 3 characters'] }

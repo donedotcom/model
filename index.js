@@ -11,3 +11,4 @@ exports.config = {
 
 exports.Model = require('./lib/model');
 exports.ModelErrors = require('./lib/model_errors');
+exports.BackboneModel = require('./lib/backbone_model');
