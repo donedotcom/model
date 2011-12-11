@@ -7,7 +7,7 @@ _ = require 'underscore'
 
 mainDir = './'
 
-excludedHintFiles = []
+excludedHintFiles = ['done-model.js', 'done-model-min.js']
 excludedHintDirs = ['node_modules']
 
 task 'spec', 'run vows specs', ->
