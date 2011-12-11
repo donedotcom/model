@@ -30,7 +30,7 @@ vows.describe('BackboneModel').addBatch({
       widget.bind('error', function (model, error, options) {
         this.callback(error, model);
       }, this);
-      widget.set({ });
+      assert.isFalse(widget.set({ }));
     },
     'should have an error on name field': function (err, widget) {
       assert.equal(err.on('name'), validationText);
@@ -41,5 +41,5 @@ vows.describe('BackboneModel').addBatch({
     'should have the field': function (widget) {
       assert.equal(widget.get('name'), 'josh');
     }
-  }
+  },
 }).export(module);

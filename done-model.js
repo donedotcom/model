@@ -348,7 +348,7 @@ var objectFunctions = {
     }
     // Accessor for the id attribute -- pretend to be a MongoModel on the
     // server and a Backbone Model on the browser
-    if (process && process.title !== 'browser') {
+    if (typeof process !== 'undefined' && process.title !== 'browser') {
       var self = this;
       this.__defineGetter__('id', function () {
         return self.get('_id');
@@ -624,7 +624,10 @@ var objectFunctions = {
 
   get : DoneModel.prototype.get,
 
-  set : DoneModel.prototype.set
+  set : function () {
+    var result = DoneModel.prototype.set.apply(this, arguments);
+    return result.errors.isEmpty();
+  }
 };
 
 var BackboneModel = module.exports = Backbone.Model.extend(objectFunctions, modelFunctions);
