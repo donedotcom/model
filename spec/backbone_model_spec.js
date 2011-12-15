@@ -27,7 +27,7 @@ vows.describe('BackboneModel').addBatch({
   'create with invalid field': {
     topic: function () {
       var widget = new Widget({ });
-      widget.bind('error', function (model, error, options) {
+      widget.bind('change:errors', function (model, error, options) {
         this.callback(error, model);
       }, this);
       assert.isFalse(widget.set({ }));
